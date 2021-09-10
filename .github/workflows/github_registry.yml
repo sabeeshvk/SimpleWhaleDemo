@@ -32,7 +32,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.ghcr_TOKEN }}
+          password: ${{ secrets.CR_PAT }}
       -
         name: Build and push
         id: docker_build
@@ -42,7 +42,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/nebuk89/simplewhale:latest
+          tags: ghcr.io/sabeeshvk/simplewhale:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       -
