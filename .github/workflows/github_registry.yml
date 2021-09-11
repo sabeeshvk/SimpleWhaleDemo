@@ -51,10 +51,10 @@ jobs:
         run: echo "$MATRIX_CONTEXT"
 
       - 
+        name: Log PAT
+        env:
+          SSH_KEY: ${{secrets.CR_PAT}}
         run:  echo "PAT found : $SSH_KEY" 
-            shell: bash
-            env:
-              SSH_KEY: ${{secrets.CR_PAT}}
 
       -
         name: Login to ghcr
