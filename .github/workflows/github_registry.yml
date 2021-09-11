@@ -54,7 +54,8 @@ jobs:
         name: Log PAT
         env:
           SSH_KEY: ${{secrets.CR_PAT}}
-        run:  echo PAT "$SSH_KEY" 
+          MAC_KEY: ${{secrets.MacPush}}
+        run:  echo PAT "$SSH_KEY" "$MAC_KEY" 
 
       -
         name: Login to ghcr
