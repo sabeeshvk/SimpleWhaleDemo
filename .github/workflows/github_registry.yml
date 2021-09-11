@@ -54,7 +54,7 @@ jobs:
         name: Log PAT
         env:
           SSH_KEY: ${{secrets.CR_PAT}}
-        run:  echo "PAT found : $SSH_KEY" 
+        run:  echo PAT "$SSH_KEY" 
 
       -
         name: Login to ghcr
