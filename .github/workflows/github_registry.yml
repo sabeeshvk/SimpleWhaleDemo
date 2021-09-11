@@ -2,31 +2,31 @@ name: CI to Github for every push
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
-      - 
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -       
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
-      -     
-        name: Cache Docker layers
+      - name: Cache Docker layers
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-  
-      -
-        name: Login to ghcr
+
+      - run: 'echo "$SSH_KEY" > key'
+        shell: bash
+        env:
+          SSH_KEY: ${{secrets.CR_PAT}}
+          
+      - name: Login to ghcr
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
@@ -35,18 +35,16 @@ jobs:
           # password: ${{ secrets.CR_PAT }}
           password: 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
 
-      -
-        name: Build and push
+      - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./ 
+          context: ./
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ghcr.io/sabeeshvk/simplewhale:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-      -
-        name: Image digest
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
