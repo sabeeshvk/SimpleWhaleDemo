@@ -21,7 +21,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - run: 'echo "$SSH_KEY" > key'
+      - run: 'echo "$SSH_KEY"
         shell: bash
         env:
           SSH_KEY: ${{secrets.CR_PAT}}
@@ -32,8 +32,8 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          # password: ${{ secrets.CR_PAT }}
-          password: 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
+          password: ${{ secrets.CR_PAT }}
+          
 
       - name: Build and push
         id: docker_build
