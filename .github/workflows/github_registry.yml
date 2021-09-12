@@ -53,9 +53,8 @@ jobs:
       - 
         name: Log PAT
         env:
-          SSH_KEY: ${{secrets.CR_PAT}}
-          GH_KEY: ${{secrets.GITHUB_TOKEN}}
-        run:  echo PAT "$SSH_KEY"  "$GH_KEY"
+          SSH_KEY: ${{secrets.CR_PAT}}  # This is defined in the repository secrets. First generate PAT uder account setting and store the key and value under repository secrets
+        run:  echo PAT "$SSH_KEY"  
 
       -
         name: Login to ghcr
