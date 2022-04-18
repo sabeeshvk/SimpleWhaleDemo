@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "ram-0e2e"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "ram-0e2e"
+  template:
+    metadata:
+      labels:
+        app: "ram-0e2e"
+    spec:
+      containers:
+        - name: "ram-0e2e"
+          image: "sabeeshtestaks.azurecr.io/ram"
+          ports:
+          - containerPort: 80
